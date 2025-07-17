@@ -1,4 +1,4 @@
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { createUser } from "../features/slice";
 import {useState} from 'react'
 import {useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ const Create = ()=>{
     const [userInfo, serUserInfo] = useState({});
      const navigate = useNavigate();
      const dispatch = useDispatch()
+     const {loading} = useSelector((state)=> state.app);
 
     const handleSubmit = (e)=>{
         e.preventDefault()
@@ -17,6 +18,10 @@ const Create = ()=>{
 
     const handleUserInfo = (e)=>{
         serUserInfo({...userInfo , [e.target.name] : e.target.value});
+    }
+
+    if(loading){
+        return <h1>Loading...</h1>;
     }
 
     return (
